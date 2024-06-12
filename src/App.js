@@ -5,20 +5,21 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Home from './View/Home';
 import Login from './View/Login';
 import './App.css';
-
+import {UserProvider} from './Controller/UserContext';
 
 
 
 function App() {
   return (
-    
-    <Router>
-      <Routes>
-        <Route path="/" element={<Navigate to="/login" />} />
-        <Route path="login" element={<Login />} />
-        <Route path="home/*" element={<Home />} />
-      </Routes>
-    </Router>
+    <UserProvider>    
+      <Router>
+        <Routes>
+          <Route path="/" element={<Navigate to="/login" />} />
+          <Route path="login" element={<Login />} />
+          <Route path="home/*" element={<Home />} />
+        </Routes>
+      </Router>
+    </UserProvider>
   );
 }
 

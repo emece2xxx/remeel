@@ -1,25 +1,33 @@
 import React, { useState } from "react";
-import { Container, Form, Button } from 'react-bootstrap';
+import { Form, Button } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import './Login.css';
+import { useUser } from '../Controller/UserContext';
+
 
 const Login = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
-
+    const { login } = useUser();
     const handleSubmit = (e) => {
         e.preventDefault();
-
-        if (username === 'user' && password === '123') {
+        if (username === 'far' && password === '123') {
+            login('Farmaceutico');
+            navigate('/home');
+        } else if (username === 'pac' && password === '123') {
+            login('Paciente');
+            navigate('/home');
+        } else if (username === 'med' && password === '123') {
+            login('Medico');
             navigate('/home');
         } else {
-            alert("Credenciales invalidas");
+            alert("Credenciales inválidas");
         }
     };
 
     return (
-        /*<Container className="login-container">*/
+       
         <div  className="login-container">
             <h1>Login</h1>
             <Form onSubmit={handleSubmit}>
@@ -44,7 +52,6 @@ const Login = () => {
                 </Button>
             </Form>
         </div>
-        /*</Container>*/
     );
 };
 

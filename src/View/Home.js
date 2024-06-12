@@ -1,13 +1,19 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 // Home.js
 import React from 'react';
-import { Route, Routes, Link, Outlet, useNavigate } from 'react-router-dom';
-import { footer, Navbar, Nav, Button } from 'react-bootstrap';
+import { Route, Routes, Link, useNavigate } from 'react-router-dom';
+import { Navbar, Nav, Button } from 'react-bootstrap';
 import AceptarReceta from './AceptarReceta';
 import LandingFarmaceutico from './LandingFarmaceutico';
-
+import LandingPaciente from './LandingPaciente';
+import LandingMedico from './LandingMedico';
+import CrearReceta from './CrearReceta';
+import AnularReceta from './AnularReceta';
+import { useUser } from '../Controller/UserContext';
+import VerRecetas from './VerRecetas';
 const Home = () => {
   const navigate = useNavigate();
+  const { userType } = useUser();
   const handleLogout = () => {
     navigate('/login');
   };
@@ -18,8 +24,25 @@ const Home = () => {
             <Navbar bg="dark" variant="dark">
         <Navbar.Brand>REMEEL</Navbar.Brand>
         <Nav className="me-auto">
-          <Nav.Link as={Link} to="/home/LandingFarmaceutico">Pagina Principal</Nav.Link>
-          <Nav.Link as={Link} to="/home/AceptarReceta">Aceptar Receta</Nav.Link>
+        {userType === 'Farmaceutico' && (
+            <>
+              <Nav.Link as={Link} to="./LandingFarmaceutico">Página Principal</Nav.Link>
+              <Nav.Link as={Link} to="./AceptarReceta">Aceptar Receta</Nav.Link>
+            </>
+          )}
+          {userType === 'Medico' && (
+            <>
+              <Nav.Link as={Link} to="./LandingMedico">Página Principal</Nav.Link>
+              <Nav.Link as={Link} to="./CrearReceta">Crear Receta</Nav.Link>
+              <Nav.Link as={Link} to="./AnularReceta">Anular Receta</Nav.Link>
+            </>
+          )}
+          {userType === 'Paciente' && (
+            <>
+              <Nav.Link as={Link} to="./LandingPaciente">Página Principal</Nav.Link>
+              <Nav.Link as={Link} to="./VerRecetas">Ver Recetas</Nav.Link>
+            </>
+          )}
         </Nav>
         <div className="ms-auto">
           <Button variant="outline-light" onClick={handleLogout}>Cerrar Sesión</Button>
@@ -27,11 +50,32 @@ const Home = () => {
           </Navbar>
       </div>
       <div className="content">
-        <Routes>
-          <Route path="LandingFarmaceutico" element={<LandingFarmaceutico />} />
-          <Route path="AceptarReceta" element={<AceptarReceta />} />
-        </Routes>
-      </div>
+  <Routes>
+    {userType === 'Farmaceutico' && (
+      <>
+        <Route path="LandingFarmaceutico" element={<LandingFarmaceutico />} />
+        <Route path="AceptarReceta" element={<AceptarReceta />} />
+        {/* Agrega aquí las demás rutas específicas para 'Farmaceutico' */}
+      </>
+    )}
+    {userType === 'Medico' && (
+      <>
+        <Route path="LandingMedico" element={<LandingMedico />} />
+        <Route path="CrearReceta" element={<CrearReceta />} />
+        <Route path="AnularReceta" element={<AnularReceta />} />
+        {/* Agrega aquí las demás rutas específicas para 'Medico' */}
+      </>
+    )}
+    {userType === 'Paciente' && (
+      <>
+        <Route path="LandingPaciente" element={<LandingPaciente />} />
+        <Route path="VerRecetas" element={<VerRecetas />} />
+        {/* Agrega aquí las demás rutas específicas para 'Paciente' */}
+      </>
+    )}
+  </Routes>
+</div>
+
       <footer className='bg-dark text-light'>
       <div class="row">
       <div class="col-6 col-md-2 mb-3">
