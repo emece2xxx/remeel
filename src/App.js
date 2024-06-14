@@ -11,15 +11,18 @@ import {UserProvider} from './Controller/UserContext';
 
 function App() {
   return (
-    <UserProvider>    
-      <Router>
-        <Routes>
-          <Route path="/" element={<Navigate to="/login" />} />
-          <Route path="login" element={<Login />} />
-          <Route path="home/*" element={<Home />} />
-        </Routes>
-      </Router>
-    </UserProvider>
+    <div className='App'>
+      <UserProvider>    
+        <Router>
+          <Routes>
+            <Route path="/" element={<Navigate to="/login" />} />
+            <Route path="login" element={<Login />} />
+            <Route path="home/*" element={<Home />} />
+          </Routes>
+        </Router>
+      </UserProvider>
+    </div>
+    
   );
 }
 

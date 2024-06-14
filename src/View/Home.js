@@ -19,7 +19,7 @@ const Home = () => {
   };
 
   return (
-    <div id="root" className="home-container">
+    <div  className="home-container">
       <div className="header">
             <Navbar bg="dark" variant="dark">
         <Navbar.Brand>REMEEL</Navbar.Brand>
@@ -77,14 +77,8 @@ const Home = () => {
 </div>
 
       <footer className='bg-dark text-light'>
-      <div class="row">
-      <div class="col-6 col-md-2 mb-3">
-        <h5>Navegación</h5>
-        <ul class="nav flex-column">
-          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-light">Pagina Principal</a></li>
-          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-light">Aceptar Receta</a></li>
-        </ul>
-      </div>
+      <div className="row">
+
 
       
     </div>

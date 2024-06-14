@@ -2,7 +2,7 @@ import React from 'react';
 import './AceptarReceta.css';
 const AceptarReceta =() => {
     return (
-        <div id='root' className='content'>
+        <div className='content'>
         <h1>Aceptar Receta</h1>
         </div>
     );
