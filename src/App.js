@@ -5,7 +5,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Home from './View/Home';
 import Login from './View/Login';
 import './App.css';
-import {UserProvider} from './Controller/UserContext';
+import { UserProvider } from './Controller/userContext';
+
 
 
 

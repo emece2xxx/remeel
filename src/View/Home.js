@@ -9,8 +9,10 @@ import LandingPaciente from './LandingPaciente';
 import LandingMedico from './LandingMedico';
 import CrearReceta from './CrearReceta';
 import AnularReceta from './AnularReceta';
-import { useUser } from '../Controller/UserContext';
+
 import VerRecetas from './VerRecetas';
+import { useUser } from '../Controller/userContext';
+
 const Home = () => {
   const navigate = useNavigate();
   const { userType } = useUser();

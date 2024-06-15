@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Form, Button } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import './Login.css';
-import { useUser } from '../Controller/UserContext';
+import { useUser } from "../Controller/userContext";
 
 
 const Login = () => {
@@ -13,7 +13,7 @@ const Login = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         if (username === 'far' && password === '123') {
-            login('Farmaceutico');
+            login('Farmaceutico');            
             navigate('/home');
         } else if (username === 'pac' && password === '123') {
             login('Paciente');

@@ -1,14 +1,12 @@
 // UserContext.js
 import React, { createContext, useState, useContext } from 'react';
 
-// Crear el contexto
+
 const UserContext = createContext();
 
-// Proveedor de contexto
 export const UserProvider = ({ children }) => {
-  const [userType, setUserType] = useState(null); // Inicialmente null
+  const [userType, setUserType] = useState(null); 
 
-  // Función para actualizar el tipo de usuario
   const login = (type) => {
     setUserType(type);
   };
@@ -20,5 +18,4 @@ export const UserProvider = ({ children }) => {
   );
 };
 
-// Hook personalizado para usar el contexto de usuario
 export const useUser = () => useContext(UserContext);
