@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 // Home.js
 import React from 'react';
-import { Route, Routes, Link, useNavigate } from 'react-router-dom';
+import { Route, Routes, Link, useNavigate, Navigate } from 'react-router-dom';
 import { Navbar, Nav, Button } from 'react-bootstrap';
 import AceptarReceta from './AceptarReceta';
 import LandingFarmaceutico from './LandingFarmaceutico';
@@ -21,7 +21,7 @@ const Home = () => {
   };
 
   return (
-    <div  className="home-container">
+    <div className="homeContainer">
       <div className="header">
             <Navbar bg="dark" variant="dark">
         <Navbar.Brand>REMEEL</Navbar.Brand>
@@ -52,64 +52,42 @@ const Home = () => {
           </Navbar>
       </div>
       <div className="content">
-  <Routes>
-    {userType === 'Farmaceutico' && (
-      <>
+      <Routes>
+       userType === 'Farmaceutico' ? (
+        <>
         <Route path="LandingFarmaceutico" element={<LandingFarmaceutico />} />
         <Route path="AceptarReceta" element={<AceptarReceta />} />
-        {/* Agrega aquí las demás rutas específicas para 'Farmaceutico' */}
+        
       </>
-    )}
-    {userType === 'Medico' && (
-      <>
-        <Route path="LandingMedico" element={<LandingMedico />} />
-        <Route path="CrearReceta" element={<CrearReceta />} />
-        <Route path="AnularReceta" element={<AnularReceta />} />
-        {/* Agrega aquí las demás rutas específicas para 'Medico' */}
-      </>
-    )}
-    {userType === 'Paciente' && (
-      <>
-        <Route path="LandingPaciente" element={<LandingPaciente />} />
-        <Route path="VerRecetas" element={<VerRecetas />} />
-        {/* Agrega aquí las demás rutas específicas para 'Paciente' */}
-      </>
-    )}
-  </Routes>
+      )
+      : userType === 'Medico' ? (
+        <>
+          <Route path="LandingMedico" element={<LandingMedico />} />
+          <Route path="CrearReceta" element={<CrearReceta />} />
+          <Route path="AnularReceta" element={<AnularReceta />} />
+
+        </>
+      )
+      : userType === 'Paciente' ? (
+        <>
+          <Route path="LandingPaciente" element={<LandingPaciente />} />
+          <Route path="VerRecetas" element={<VerRecetas />} />
+
+        </>
+      )
+    </Routes>
 </div>
 
       <footer className='bg-dark text-light'>
-      <div className="row">
-
-
-      
+      <div className="row">      
     </div>
     <div>
-      <div className="d-flex flex-column flex-sm-row justify-content-between py-4 my-4 border-top">
+      <div className="d-flex flex-column flex-sm-column justify-content-between py-2 my-2 border-top">
         <p>© Creado para la asignatura Ingenieria Web de la Carrera Licenciatura en Sistemas de Información del año 2024</p>
-        <ul className="list-unstyled d-flex">
-          <li className="ms-3">
-            <a className="link-body-emphasis" href="#">
-              <svg className="bi" width="24" height="24">
-                <use href="#twitter" />
-              </svg>
-            </a>
-          </li>
-          <li className="ms-3">
-            <a className="link-body-emphasis" href="#">
-              <svg className="bi" width="24" height="24">
-                <use href="#instagram" />
-              </svg>
-            </a>
-          </li>
-          <li className="ms-3">
-            <a className="link-body-emphasis" href="#">
-              <svg className="bi" width="24" height="24">
-                <use href="#facebook" />
-              </svg>
-            </a>
-          </li>
-        </ul>
+        <p>Grupo: Camino Oller Mauricio, Enriquez Galvan Cristian, Figueroa Daniela</p>
+      </div>
+      <div>
+        
       </div>
     </div>
       </footer>

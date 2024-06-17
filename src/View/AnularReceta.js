@@ -2,7 +2,7 @@ import React from 'react';
 import './AnularReceta.css';
 const AnularReceta =() => {
     return (
-        <div className='content'>
+        <div className='contentAnularReceta'>
         <h1>Anular Receta</h1>
         </div>
     );

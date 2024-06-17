@@ -3,7 +3,7 @@ import './LandingPaciente.css';
 const LandingPaciente =() => {
     return (
         
-        <div className='content' >
+        <div className='contentLandingPaciente' >
         <h1>Pagina principal Paciente</h1>
         </div>
        

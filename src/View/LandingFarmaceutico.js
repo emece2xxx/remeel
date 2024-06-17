@@ -3,7 +3,7 @@ import './LandingFarmaceutico.css';
 const LandingFarmaceutico =() => {
     return (
 
-        <div className='content' >
+        <div className='contentLandingFarmaceutico' >
         <h1>Pagina principal</h1>
         </div>
 
