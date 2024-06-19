@@ -1,7 +1,6 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
 // Home.js
-import React from 'react';
-import { Route, Routes, Link, useNavigate, Navigate } from 'react-router-dom';
+import React, {useState, useEffect } from 'react';
+import {useNavigate} from 'react-router-dom';
 import { Navbar, Nav, Button } from 'react-bootstrap';
 import AceptarReceta from './AceptarReceta';
 import LandingFarmaceutico from './LandingFarmaceutico';
@@ -9,7 +8,6 @@ import LandingPaciente from './LandingPaciente';
 import LandingMedico from './LandingMedico';
 import CrearReceta from './CrearReceta';
 import AnularReceta from './AnularReceta';
-
 import VerRecetas from './VerRecetas';
 import { useUser } from '../Controller/userContext';
 
@@ -19,6 +17,19 @@ const Home = () => {
   const handleLogout = () => {
     navigate('/login');
   };
+  const [content, setContent] = useState(userType === 'Farmaceutico' ? 'LandingFarmaceutico' : userType === 'Medico' ? 'LandingMedico' : 'LandingPaciente');
+  const changeContent = (newContent) => {
+    setContent(newContent);
+  };
+  useEffect(() => {
+    if (userType === 'Farmaceutico') {
+      setContent('LandingFarmaceutico');
+    } else if (userType === 'Medico') {
+      setContent('LandingMedico');
+    } else if (userType === 'Paciente') {
+      setContent('LandingPaciente');
+    }
+  }, [userType]);
 
   return (
     <div className="homeContainer">
@@ -27,24 +38,24 @@ const Home = () => {
         <Navbar.Brand>REMEEL</Navbar.Brand>
         <Nav className="me-auto">
         {userType === 'Farmaceutico' && (
-            <>
-              <Nav.Link as={Link} to="./LandingFarmaceutico">Página Principal</Nav.Link>
-              <Nav.Link as={Link} to="./AceptarReceta">Aceptar Receta</Nav.Link>
-            </>
-          )}
-          {userType === 'Medico' && (
-            <>
-              <Nav.Link as={Link} to="./LandingMedico">Página Principal</Nav.Link>
-              <Nav.Link as={Link} to="./CrearReceta">Crear Receta</Nav.Link>
-              <Nav.Link as={Link} to="./AnularReceta">Anular Receta</Nav.Link>
-            </>
-          )}
-          {userType === 'Paciente' && (
-            <>
-              <Nav.Link as={Link} to="./LandingPaciente">Página Principal</Nav.Link>
-              <Nav.Link as={Link} to="./VerRecetas">Ver Recetas</Nav.Link>
-            </>
-          )}
+              <>
+                <Nav.Link onClick={() => changeContent('LandingFarmaceutico')}>Página Principal</Nav.Link>
+                <Nav.Link onClick={() => changeContent('AceptarReceta')}>Aceptar Receta</Nav.Link>
+              </>
+            )}
+            {userType === 'Medico' && (
+              <>
+                <Nav.Link onClick={() => changeContent('LandingMedico')}>Página Principal</Nav.Link>
+                <Nav.Link onClick={() => changeContent('CrearReceta')}>Crear Receta</Nav.Link>
+                <Nav.Link onClick={() => changeContent('AnularReceta')}>Anular Receta</Nav.Link>
+              </>
+            )}
+            {userType === 'Paciente' && (
+              <>
+                <Nav.Link onClick={() => changeContent('LandingPaciente')}>Página Principal</Nav.Link>
+                <Nav.Link onClick={() => changeContent('VerRecetas')}>Ver Recetas</Nav.Link>
+              </>
+            )}
         </Nav>
         <div className="ms-auto">
           <Button variant="outline-light" onClick={handleLogout}>Cerrar Sesión</Button>
@@ -52,32 +63,14 @@ const Home = () => {
           </Navbar>
       </div>
       <div className="content">
-      <Routes>
-       userType === 'Farmaceutico' ? (
-        <>
-        <Route path="LandingFarmaceutico" element={<LandingFarmaceutico />} />
-        <Route path="AceptarReceta" element={<AceptarReceta />} />
-        
-      </>
-      )
-      : userType === 'Medico' ? (
-        <>
-          <Route path="LandingMedico" element={<LandingMedico />} />
-          <Route path="CrearReceta" element={<CrearReceta />} />
-          <Route path="AnularReceta" element={<AnularReceta />} />
-
-        </>
-      )
-      : userType === 'Paciente' ? (
-        <>
-          <Route path="LandingPaciente" element={<LandingPaciente />} />
-          <Route path="VerRecetas" element={<VerRecetas />} />
-
-        </>
-      )
-    </Routes>
-</div>
-
+        {content === 'LandingFarmaceutico' && <LandingFarmaceutico />}
+        {content === 'AceptarReceta' && <AceptarReceta />}
+        {content === 'LandingMedico' && <LandingMedico />}
+        {content === 'CrearReceta' && <CrearReceta />}
+        {content === 'AnularReceta' && <AnularReceta />}
+        {content === 'LandingPaciente' && <LandingPaciente />}
+        {content === 'VerRecetas' && <VerRecetas />}       
+      </div>
       <footer className='bg-dark text-light'>
       <div className="row">      
     </div>

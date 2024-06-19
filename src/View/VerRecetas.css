@@ -1,3 +1,22 @@
 .contentVerRecetas{
-    background-color: bisque;
+    display: flex;
+    justify-content: flex-start;
+    align-items: stretch;
+    flex-direction: column;
+    height: 100vh;
+    max-width: 100%;
+    margin: 0 auto;
+    width: 100%;
+    background-color: cadetblue;
 }
+.listadoRecetasTable .MuiTableCell-head{
+    font-weight: bold;
+    text-align: center;
+    font-size: 1.2em;
+    column-span: all ;
+  }
+  .botonesSuperiores {
+    display: flex;
+    align-items: center;
+  }
+  

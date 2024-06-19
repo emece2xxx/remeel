@@ -4,7 +4,7 @@ const LandingFarmaceutico =() => {
     return (
 
         <div className='contentLandingFarmaceutico' >
-        <h1>Pagina principal</h1>
+        <h1>Pagina principal Farmaceutico</h1>
         </div>
 
     );

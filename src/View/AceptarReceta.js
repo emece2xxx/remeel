@@ -55,11 +55,11 @@ const AceptarReceta =() => {
             
         <div className={`table ${!dataFound ? 'disabled' : ''}`}>
             <div className='pacienteMedicoTables' style={{flexDirection: 'row'}}>
-            <TableContainer component={Paper}>
+                <TableContainer component={Paper}>
                     <Table sx={{ minWidth: 200 }} aria-label='simple table'>
                         <TableHead>
                             <TableRow>
-                                <TableCell colSpan={2} variant='head' >Medico</TableCell>
+                                <TableCell colSpan={2} variant='head'>Medico</TableCell>
                             </TableRow>
                             <TableRow>                                
                                 <TableCell>Nombre y Apellido</TableCell>
@@ -72,8 +72,8 @@ const AceptarReceta =() => {
                                 key={row.MP}
                                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                             >
-                                <TableCell colSpan={1} align='left'>{row.Apellido +' ' + row.Nombre}</TableCell>
-                                <TableCell aling='right'>{row.MP}</TableCell>                                                                
+                                <TableCell align='center'>{row.Apellido +' ' + row.Nombre}</TableCell>
+                                <TableCell align='center'>{row.MP}</TableCell>                                                                
                             </TableRow> 
                             ))}
                         </TableBody>

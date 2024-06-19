@@ -26,7 +26,7 @@
     margin-bottom: 10px;
     align-items: center;
   }
-  .table.disabled {
+  .table .disabled {
     pointer-events: none;
     opacity: 0.5;
   }
