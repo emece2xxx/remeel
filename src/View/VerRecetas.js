@@ -5,7 +5,7 @@ import Medicamento from '../Models/Medicamento';
 import Receta from '../Models/Receta';
 import { LocalizationProvider, DatePicker } from '@mui/x-date-pickers';
 import {AdapterDateFns} from '@mui/x-date-pickers/AdapterDateFns';
-import esLocale from 'date-fns/locale/es';
+
 
 const datosReceta = [
     new Receta(2333,"12/12/2012",666,11222333,12,'Activa'),

@@ -1,11 +1,37 @@
 
 .contentAnularReceta {
+  display: flex;
+  align-items: stretch;
+  flex-direction: column;
+  height: 100vh;
+  margin: 0 auto;
+  width: 100%;
+  background-color: cadetblue;
+  }
+  .listadoTable{
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    margin-top: 20px;
+  }
+  .listadoPacienteTable, .listadoRecetasTable {
+    flex: 1; 
+  }
+  .listadoRecetastable{
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 20px; 
+    margin-top: 20px;
+  }
+  .listadoPacienteTable .MuiTableCell-head,.listadoRecetasTable .MuiTableCell-head{
+    font-weight: bold;
+    text-align: center;
+    font-size: 1.2em;
+    column-span: all;
+  }
+  .botonesSuperiores {
     display: flex;
     align-items: center;
-    flex-direction: column;
-    height: 100vh;
-    max-width: 100%;
-    margin: 0 auto;
-    width: 100%;
-    background-color: cadetblue;
   }

@@ -42,10 +42,9 @@ const AceptarReceta =() => {
         <h1>Aceptar Receta</h1>
         <div className='title'>
         <div className='PanelSuperior'>
-                <h6>Codigo de Barras</h6>
-                
+                <h6>Codigo de Barras</h6>                
                 <input style={{'marginLeft': '10px'}} placeholder='Codigo de Barras'></input>
-                <Button id='buscarReceta' variant="contained">Buscar</Button>
+                <Button id='buscarReceta' variant="contained" onClick={handleSearch}>Buscar</Button>
                 
         </div>
         </div>
