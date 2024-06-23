@@ -9,7 +9,7 @@ import LandingMedico from './LandingMedico';
 import CrearReceta from './CrearReceta';
 import AnularReceta from './AnularReceta';
 import VerRecetas from './VerRecetas';
-import { useUser } from '../Controller/userContext';
+import { useUser } from '../Controller/UserContext';
 
 const Home = () => {
   const navigate = useNavigate();

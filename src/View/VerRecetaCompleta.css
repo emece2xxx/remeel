@@ -1,0 +1,12 @@
+/* VerRecetaCompleta.css */
+.recetaContainer {
+	display: flex;
+	flex-direction: column;
+	width: 600px;
+}
+
+h4 {
+	background: black;
+	color: white;
+	text-align: center;
+}

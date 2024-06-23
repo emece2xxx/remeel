@@ -1,20 +1,16 @@
 class Paciente{
     
-    constructor(DNI,Apellido,Nombre,ObraSocial,NumeroSocio){
+    constructor(DNI,ApellidoNombre,ObraSocial,NumeroSocio){
         this.DNI=DNI;
-        this.Apellido=Apellido;
-        this.Nombre=Nombre;
+        this.ApellidoNombre=ApellidoNombre;
         this.ObraSocial=ObraSocial;
         this.NumeroSocio=NumeroSocio;
     }
     getDNI(){
         return this.DNI;
     }
-    getApellido(){
-        return this.Apellido;
-    }
-    getNombre(){
-        return this.Nombre;
+    getApellidoNombre(){
+        return this.ApellidoNombre;
     }
     getObraSocial(){
         return this.ObraSocial;
@@ -22,11 +18,8 @@ class Paciente{
     setDNI(DNI){
         this.DNI=DNI;
     }
-    setApellido(Apellido){
-        this.Apellido=Apellido;
-    }
-    setNombre(Nombre){
-        this.Nombre=Nombre;
+    setApellido(ApellidoNombre){
+        this.ApellidoNombre=ApellidoNombre;
     }
     setObraSocial(ObraSocial){
         this.ObraSocial=ObraSocial;

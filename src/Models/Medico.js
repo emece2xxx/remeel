@@ -1,9 +1,8 @@
 class Medico{
-    
-    constructor(MP,Apellido,Nombre,Especialidad,Correo,Firma){
+
+    constructor(MP,ApellidoNombre,Especialidad,Correo,Firma){
         this.MP=MP;
-        this.Apellido=Apellido;
-        this.Nombre=Nombre;
+        this.ApellidoNombre=ApellidoNombre;
         this.Especialidad=Especialidad;
         this.Correo=Correo;
         this.Firma=Firma;
@@ -11,11 +10,8 @@ class Medico{
     getMP(){
         return this.MP;
     }
-    getApellido(){
-        return this.Apellido;
-    }
-    getNombre(){
-        return this.Nombre;
+    getApellidoNombre(){
+        return this.ApellidoNombre;
     }
     getEspecialidad(){
         return this.Especialidad;
@@ -29,11 +25,8 @@ class Medico{
     setMP(MP){
         this.MP=MP;
     }
-    setApellido(Apellido){
-        this.Apellido=Apellido;
-    }
-    setNombre(Nombre){
-        this.Nombre=Nombre;
+    setApellido(ApellidoNombre){
+        this.ApellidoNombre=ApellidoNombre;
     }
     setEspecialidad(Especialidad){
         this.Especialidad=Especialidad;
@@ -45,4 +38,5 @@ class Medico{
         this.Firma=Firma;
     }
 }
+
 export default Medico;

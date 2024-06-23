@@ -2,32 +2,39 @@ import React, { useState } from "react";
 import { Form, Button } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import './Login.css';
-import { useUser } from "../Controller/userContext";
+import { useUser } from '../Controller/UserContext';
+const sha2_256 = require('simple-js-sha2-256');
 
-
-const Login = () => {
+  const Login = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
-    const { login } = useUser();
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        if (username === 'far' && password === '123') {
-            login('Farmaceutico');            
-            navigate('/home');
-        } else if (username === 'pac' && password === '123') {
-            login('Paciente');
-            navigate('/home');
-        } else if (username === 'med' && password === '123') {
-            login('Medico');
-            navigate('/home');
-        } else {
-            alert("Credenciales inválidas");
-        }
-    };
+    const { login, setUserReg } = useUser();
 
+    // evento login
+    const handleSubmit = (e) => {
+      e.preventDefault();
+      const hashedPass = sha2_256(password);
+      fetch('/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ nombre: username, pwd: hashedPass })
+      })
+      .then(response1 => response1.json())
+      .then(data1 => {
+        login(data1[0].tipo);
+        return fetch(`/usuario-${data1[0].tipo}/${data1[0].id_usuario}`);
+      })
+      .then(response2 => response2.json())
+      .then(data2 => {
+        setUserReg(data2[0]);
+        navigate('/home');
+      })
+      .catch(err => { alert('Credenciales inválidas') });
+    }
+
+    // render de la página
     return (
-       
         <div className="login-container">
             <h1>Login</h1>
             <Form onSubmit={handleSubmit}>

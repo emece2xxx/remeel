@@ -1,11 +1,61 @@
 .contentCrearReceta {
     display: flex;
-    justify-content: center;
-    align-items: center;
+    justify-content: flex-start;
+    align-items: stretch;
     flex-direction: column;
     height: 100vh;
     max-width: 100%;
     margin: 0 auto;
     width: 100%;
-    background-color: brown;
+    background-color: cadetblue;
+  }
+  .table{
+    display: 'flex';
+    flex-direction: 'column';
+    align-items: 'center'
+  }
+  .PanelSuperior{
+    display: flex;
+    gap: 10px;
+    align-items: center;    
+  }
+  .title{
+    display: flex; 
+    justify-content: space-between;
+    margin-bottom: 10px;
+    align-items: center;
+  }
+  .table .disabled {
+    pointer-events: none;
+    opacity: 0.5;
+  }
+  .pacienteMedicoTables{
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  .medicamentoTable{
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 10px;
+  }
+  .medicamentoTable .MuiTableCell-head, .pacienteMedicoTables .MuiTableCell-head {
+    font-weight: bold;
+    text-align: center;
+    font-size: 1.2em;
+    column-span: all ;
+  }
+  .areaDatosPaciente {
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+  }
+  .listaDatosPaciente {
+    padding: 20px 20px 0px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    width: 300px;
+    background: white;
+    border: 1px solid black;
   }

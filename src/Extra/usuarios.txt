@@ -1,0 +1,23 @@
+usuario: morris
+pass: 123123123
+tipo: médico
+
+usuario: sonia456
+pass: sonia456
+tipo: médico
+
+usuario: fj_haydn
+pass: fj_haydn
+tipo: paciente
+
+usuario: mastropiero
+pass: 45454545
+tipo: paciente
+
+usuario: maria_db
+pass: maria
+tipo: paciente
+
+usuario: juanperez
+pass: 123456
+tipo: farmacéutico
