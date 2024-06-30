@@ -1,10 +1,11 @@
-import React, {useState} from 'react';
+import { React, useState, useRef } from 'react';
 import './AceptarReceta.css';
-import { Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Button, Typography } from '@mui/material';
-import Medicamento from '../Models/Medicamento'
-import Paciente from '../Models/Paciente'
-import Medico from '../Models/Medico'
-import Receta from '../Models/Receta'
+import { Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Button, Alert } from '@mui/material';
+import VentanaModal from './VentanaModal';
+import Medicamento from '../Models/Medicamento';
+import Paciente from '../Models/Paciente';
+import Medico from '../Models/Medico';
+import Receta from '../Models/Receta';
 
 const AceptarReceta =() => {
     const [datosMedico, setDatosMedico] = useState({});
@@ -13,6 +14,9 @@ const AceptarReceta =() => {
     const [datosMedicamento, setDatosMedicamento] = useState([]);
     const [dataFound, setDataFound] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
+    const [modalOpen, setModalOpen] = useState(false);
+    let modalExito = useRef(false);
+    let modalMensaje = useRef('');
 
     // busca la receta por el código de barras
     const handleSearch = () => {
@@ -28,7 +32,7 @@ const AceptarReceta =() => {
         })
         .catch(err => {
            setDataFound(false);
-           setErrorMessage('No se encontraron datos');
+           setErrorMessage(<Alert severity="error" variant='filled' sx={{margin: '10px', width: 'fit-content'}}>No se encontraron datos</Alert>);
         });
     };
 
@@ -37,7 +41,9 @@ const AceptarReceta =() => {
         if(datosReceta.Estado === 'Activa') {
             fetch(`/receta-usar/${datosReceta.NumeroReceta}`)
             .then(response => {
-                alert("Receta ACEPTADA");
+            	modalExito.current = true;
+            	modalMensaje.current = `Receta Nro. ${datosReceta.NumeroReceta} - Código ${datosReceta.CodigoBarra} ACEPTADA`;
+            	setModalOpen(true);
                 // limpia las tablas
                 setDatosPaciente({});
                 setDatosMedico({});
@@ -47,24 +53,25 @@ const AceptarReceta =() => {
             .catch(err => alert('Error de conexión con la BD'));
         }
         else {
-            alert("ERROR: La receta debe estar ACTIVA");
+        	modalExito.current = false;
+        	modalMensaje.current = 'Sólo se pueden aceptar recetas activas';
+        	setModalOpen(true);
         }
     }
+    
+    const handleCerrarModal = () => setModalOpen(false);
 
     return (
     <div className='contentAceptarReceta'>
         <h1>Aceptar Receta</h1>
         <div className='title'>
-        <div className='PanelSuperior'>
+        	<div className='PanelSuperior'>
                 <h6>Código de Barras</h6>
                 <input id="botonBuscar" style={{'marginLeft': '10px'}} placeholder='Código de Barras'></input>
                 <Button id='buscarReceta' variant="contained" onClick={handleSearch}>Buscar</Button>
+        	</div>
         </div>
-        </div>
-        {errorMessage && (
-                <Typography color="error">{errorMessage}</Typography>
-            )}
-
+        {errorMessage}
         <div className={`table ${!dataFound ? 'disabled' : ''}`}>
             <div className='pacienteMedicoTables' style={{flexDirection: 'row'}}>
                 <TableContainer component={Paper}>
@@ -116,7 +123,6 @@ const AceptarReceta =() => {
                     </Table>
                 </TableContainer>
             </div>
-
             <TableContainer className='medicamentoTable' component={Paper}>
                 <Table sx={{ minWidth: 650 }} aria-label='simple table'>
                     <TableHead>
@@ -145,14 +151,11 @@ const AceptarReceta =() => {
                     </TableBody>
                 </Table>
             </TableContainer>
-            <Button
-            id='aceptarRecetaButton'
-            variant='contained'
-            color='success'
-            onClick={handleAceptar} >
-             Aceptar
-            </Button>
         </div>
+        <div style={{ display: 'flex', justifyContent: 'center', paddingTop: '30px'}}>
+            <Button id='aceptarRecetaButton' variant='contained' color='success' onClick={handleAceptar} >Aceptar receta</Button>
+        </div>
+        	<VentanaModal abierta={modalOpen} exito={modalExito.current} mensaje={modalMensaje.current} onCloseModal={handleCerrarModal} />
     </div>
     );
 };

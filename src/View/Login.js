@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Form, Button } from 'react-bootstrap';
+import { Alert } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import './Login.css';
 import { useUser } from '../Controller/UserContext';
@@ -8,6 +9,7 @@ const sha2_256 = require('simple-js-sha2-256');
   const Login = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const [errorMessage, setErrorMessage] = useState('');
     const navigate = useNavigate();
     const { login, setUserReg } = useUser();
 
@@ -30,7 +32,8 @@ const sha2_256 = require('simple-js-sha2-256');
         setUserReg(data2[0]);
         navigate('/home');
       })
-      .catch(err => { alert('Credenciales inválidas') });
+      //.catch(err => { alert('Credenciales inválidas') });
+      .catch(err => setErrorMessage(<Alert severity="error" variant='outlined' sx={{margin: '10px', width: 'fit-content'}}>Credenciales inválidas</Alert>));
     }
 
     // render de la página
@@ -54,10 +57,11 @@ const sha2_256 = require('simple-js-sha2-256');
                         onChange={(e) => setPassword(e.target.value)}
                     />
                 </Form.Group>
-                <Button variant="primary" type="submit">
+                <Button variant="primary" type="submit" style={{marginTop: "10px"}}>
                     Login
                 </Button>
             </Form>
+            {errorMessage}
         </div>
     );
 };

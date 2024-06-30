@@ -2,7 +2,7 @@ import React,{ useState, useEffect, useRef } from 'react';
 import './VerRecetas.css';
 import { Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Button, Typography, TextField } from '@mui/material';
 import Receta from '../Models/Receta';
-import RecetaCompleta from './VerRecetaCompleta';
+import VentanaRecetaCompleta from './VentanaRecetaCompleta';
 import { LocalizationProvider, DatePicker } from '@mui/x-date-pickers';
 import {AdapterDateFns} from '@mui/x-date-pickers/AdapterDateFns';
 import { useUser } from '../Controller/UserContext';
@@ -15,7 +15,7 @@ const VerRecetas = () => {
     const { userReg } = useUser();
     const datosRecetaTodas = useRef([]);
     const fechaBuscar = useRef(new Date().toLocaleDateString('es-AR'));
-    const vReceta = document.querySelector("#ventanaReceta");
+    const modalOpen = useRef(false);
 
     useEffect(() => {
         fetch(`/receta-paciente/${userReg.dni}`)
@@ -46,8 +46,8 @@ const VerRecetas = () => {
     const handleVerReceta = (e) => {
         e.preventDefault();
         if(filaSeleccionada) {
-            setRecetaCompleta(<RecetaCompleta codBarras={filaSeleccionada.CodigoBarra} />);
-            vReceta.showModal();
+            modalOpen.current = true;
+            setRecetaCompleta(<VentanaRecetaCompleta codBarras={filaSeleccionada.CodigoBarra} abierta={modalOpen} onCloseModal={handleCerrarModal} />);
         }
         else alert('Debe seleccionar una receta');
     }
@@ -59,9 +59,10 @@ const VerRecetas = () => {
     const handleClick = (row) => {
         setFilaSeleccionada(row);
     };
+    
+    const handleCerrarModal = () => modalOpen.current = false;
 
     return (
-
         <div className='contentVerRecetas' >
         <Typography variant="h3" align="center" className="MuiTypography-h1">Ver Recetas</Typography>
 
@@ -80,8 +81,8 @@ const VerRecetas = () => {
             </LocalizationProvider>
                 <Button onClick={handleBuscarPorFecha} variant="contained" style={{ marginLeft: '10px' }}>Buscar</Button>
                 <Button onClick={handleTraerTodas} variant="contained" style={{ marginLeft: '10px' }}>Traer Todas las Recetas</Button>
-                <Button onClick={handleSoloValidas} variant="contained" style={{ marginLeft: '10px' }}>Solo las validas</Button>
-                <Button onClick={handleSoloInvalidas} variant="contained" style={{ marginLeft: '10px' }}>Solo invalidas</Button>
+                <Button onClick={handleSoloValidas} variant="contained" style={{ marginLeft: '10px' }}>Solo las activas</Button>
+                <Button onClick={handleSoloInvalidas} variant="contained" style={{ marginLeft: '10px' }}>Solo inactivas</Button>
                 <Button onClick={handleVerReceta} variant="contained" color="success" style={{marginLeft: 'auto'}}>Ver Receta</Button>
             </div>
             <div className='listadoRecetasTable'>
@@ -89,7 +90,7 @@ const VerRecetas = () => {
                     <Table sx={{ minWidth: 200 }} aria-label='simple table'>
                         <TableHead>
                             <TableRow>
-                                <TableCell colSpan={5} variant='head' >Receta</TableCell>
+                                <TableCell colSpan={5} variant='head' style={{textAlign: 'center'}}>Receta</TableCell>
                             </TableRow>
                             <TableRow>
                                 <TableCell>Número de Receta</TableCell>
@@ -118,12 +119,7 @@ const VerRecetas = () => {
                     </Table>
             </TableContainer>
             </div>
-
-            <dialog id="ventanaReceta">
-              {recetaCompleta}
-              <button onClick={() => vReceta.close()}>Cerrar</button>
-            </dialog>
-
+			{recetaCompleta}
         </div>
 
     );

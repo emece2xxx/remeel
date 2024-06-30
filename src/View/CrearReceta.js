@@ -1,6 +1,8 @@
-import { React, useState, useEffect } from 'react';
+import { React, useState, useEffect, useRef } from 'react';
 import './CrearReceta.css';
-import { Grid, Box, Select, FormControl, InputLabel, MenuItem, TextField, Button, Divider, Chip, Collapse, Typography } from '@mui/material';
+import { Grid, Box, Select, FormControl, InputLabel, MenuItem, TextField, Button, Divider, Chip, Collapse, Alert } from '@mui/material';
+import VentanaModal from './VentanaModal';
+import VentanaRecetaCompleta from './VentanaRecetaCompleta';
 import Paciente from '../Models/Paciente'
 import { useUser } from '../Controller/UserContext';
 
@@ -14,6 +16,24 @@ const CrearReceta = () => {
     const [medicamento1, setMedicamento1] = useState('');
     const [medicamento2, setMedicamento2] = useState('');
     const [medicamento3, setMedicamento3] = useState('');
+    const [recetaCreada, setRecetaCreada] = useState('');
+    const [modalOpen, setModalOpen] = useState(false);
+    let modalExito = useRef(false);
+    let modalMensaje = useRef('');
+    const modalRecCompOpen = useRef(false);
+    
+    // genera un código de barras EAN-13 aleatorio válido
+    const barcodeGen = () => {
+    	const n = (900000000000 + Math.floor(Math.random() * 100000000000)).toString();
+    	let s1 = 0;
+    	for(let i = 1; i < 12; i += 2) s1 += Number.parseInt(n[i]);
+    	s1 *= 3;
+    	let s2 = 0;
+    	for(let i = 0; i < 12; i += 2) s2 += Number.parseInt(n[i]);
+    	const s3 = (s1 + s2) % 10;
+    	const chk = s3 > 0 ? 10 - s3 : s3;
+    	return n * 10 + chk;
+	}
 
     useEffect(() => {
         fetch('/medicam')
@@ -35,16 +55,19 @@ const CrearReceta = () => {
 		})
 		.catch(err => {
 			setDataFound(false);
-			setErrorMessage('No se encontraron datos');
+			setErrorMessage(<Alert severity="error" variant='filled' sx={{margin: '10px', width: 'fit-content'}}>No se encontraron datos</Alert>);;
 		});
     }
     
+    // creación de la receta a partir del formulario en pantalla
     const handleCrear = () => {
     	// preparación del objeto a enviar a la BD
     	const f = new Date();
     	const strFecha = `${f.getFullYear()}-${f.getMonth()+1}-${f.getDate()}`;
+    	const codBarras = barcodeGen();
 
     	let objReceta = {
+    		codigo_barras: codBarras,
     	  	fecha_emision: strFecha,
           	matricula_med: userReg.matricula,
           	dni_paciente: datosPaciente.DNI,
@@ -71,7 +94,8 @@ const CrearReceta = () => {
       			})
       			.then(response => response.json())
       			.then(data => {
-        		alert(`Se creó la receta nro. ${data[0].nro_receta} con código de barras ${data[0].codigo_barras}`);
+            	modalRecCompOpen.current = true;
+            	setRecetaCreada(<VentanaRecetaCompleta codBarras={objReceta.codigo_barras} creada={true} abierta={modalRecCompOpen} onCloseModal={handleCerrarModalRecComp} />);
         		// oculta el formulario de receta
     			setChecked(false);
     			// limpieza del formulario
@@ -85,17 +109,23 @@ const CrearReceta = () => {
       			.catch(err => alert("Error de conexión con la BD"));
     		}
     		else {
-    			alert('ERROR: Debe especificar una cantidad mayor que cero');
+    			modalExito.current = false;
+        		modalMensaje.current = 'Debe especificar una cantidad mayor que cero';
+        		setModalOpen(true);
     		}
     	}
     	else {
-    		alert('ERROR: La receta debe contener al menos un medicamento');
+    		modalExito.current = false;
+        	modalMensaje.current = 'La receta debe contener al menos un medicamento';
+        	setModalOpen(true);
     	}
     }
     
     const handleChange1 = (e) => setMedicamento1(e.target.value);
     const handleChange2 = (e) => setMedicamento2(e.target.value);
     const handleChange3 = (e) => setMedicamento3(e.target.value);
+    const handleCerrarModal = () => setModalOpen(false);
+    const handleCerrarModalRecComp = () => modalRecCompOpen.current = false;
 
     return (
         <div className='contentCrearReceta'>
@@ -107,9 +137,7 @@ const CrearReceta = () => {
                     <Button id='buscarPaciente' variant="contained" onClick={handleSearch}>Buscar</Button>
                 </div>
             </div>
-
-            {errorMessage && (<Typography color="error">{errorMessage}</Typography>)}
-
+            {errorMessage}
 			<Collapse in={checked}>
 			<div className='formularioReceta'>
                 <Grid container>
@@ -183,6 +211,8 @@ const CrearReceta = () => {
             	<Button id='crearRecetaButton' variant='contained' color='success' onClick={handleCrear}>Crear</Button>
             </div>
 			</Collapse>
+			<VentanaModal abierta={modalOpen} exito={modalExito.current} mensaje={modalMensaje.current} onCloseModal={handleCerrarModal} />
+			{recetaCreada}
         </div>
     );
 };

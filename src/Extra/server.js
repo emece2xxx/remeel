@@ -122,11 +122,11 @@ app.get('/medicam', async (req,resp) => {
 app.post('/receta-nueva', async (req,resp) => {
   try {
     const string1 = req.body.detalle.map(item => `(LAST_INSERT_ID(),${item.codigo},${item.cantidad})`).toString();
-    const consulta1 = "INSERT INTO receta(codigo_barras,fecha_emision,estado,matricula_med,dni_paciente) VALUES (9000000000000+floor(rand()*1000000000000),?,1,?,?)";
+    const consulta1 = "INSERT INTO receta(codigo_barras,fecha_emision,estado,matricula_med,dni_paciente) VALUES (?,?,1,?,?)";
     const consulta2 = `INSERT INTO receta_medicamento VALUES ${string1}`;
     const consulta3 = "SELECT nro_receta,CAST(codigo_barras AS CHAR) AS codigo_barras FROM receta WHERE nro_receta=LAST_INSERT_ID()";
     const db = await conn.getConn();
-    await db.query(consulta1,[req.body.fecha_emision,req.body.matricula_med,req.body.dni_paciente]);
+    await db.query(consulta1,[req.body.codigo_barras,req.body.fecha_emision,req.body.matricula_med,req.body.dni_paciente]);
     await db.query(consulta2);
     const data = await db.query(consulta3);
     db.end();

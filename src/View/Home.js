@@ -76,8 +76,8 @@ const Home = () => {
     </div>
     <div>
       <div className="d-flex flex-column flex-sm-column justify-content-between py-2 my-2 border-top">
-        <p>© Creado para la asignatura Ingenieria Web de la Carrera Licenciatura en Sistemas de Información del año 2024</p>
-        <p>Grupo: Camino Oller Mauricio, Enriquez Galvan Cristian, Figueroa Daniela</p>
+        <p>© Creado para la asignatura Ingeniería Web de la Carrera Licenciatura en Sistemas de Información del año 2024</p>
+        <p>Grupo: Camino Oller Mauricio, Enríquez Galván Cristian, Figueroa Daniela</p>
       </div>
       <div>
         

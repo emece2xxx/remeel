@@ -11,10 +11,11 @@
 }
 .listadoRecetasTable .MuiTableCell-head{
     font-weight: bold;
-    text-align: center;
+    text-align: left;
     font-size: 1.2em;
     column-span: all ;
   }
+  
   .botonesSuperiores {
     display: flex;
     align-items: center;
